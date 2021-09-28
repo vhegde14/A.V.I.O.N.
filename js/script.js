@@ -54,7 +54,7 @@ function updateConversation() {
             output.innerHTML += "<p id='response-output-line'>" + "That's great to hear!" + "</p>";   
         }
     }
-    else if (input.includes("hi") || input.includes("hey") || input.includes("hello")) {
+    else if (input.includes("hi") || input.includes("hey") || input.includes("hello") || input.includes("what's up")) {
         output.innerHTML += "<p id='response-output-line'>" + "Hey there!" + "</p>";
     }
     else if (input.includes("name")) {
