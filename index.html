@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>AVION</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <script src="js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/script.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="/res/open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    </head>
+    <nav class="navbar sticky-top" id="navbar-top">
+        <span class="navbar-brand mb-0 h1">
+            <span class="oi oi-dollar" id="navbar-logo"></span>
+            AVION
+        </span>
+    </nav>
+    <body onload=display_count();>
+        <div class="container-fluid" id="upper-page">
+            <h1 type="text" id="greeting"></h1>
+            <div class="clock">
+                <h1 type="text" id="time-display"></h1>
+                <h1 type="text" id="date-display"></h1>
+            </div>
+            <p id="scroll-arrow-desc">Scroll Down</p>
+            <a class="ct-btn-scroll ct-js-btn-scroll" href="#scrollDown" onclick="scrollOnClick()"><img src="/res/open-iconic-master/svg/arrow-circle-bottom.svg" class="scroll-arrow" alt="arrow-circle-bottom"></a>
+        </div>
+        <div class="container-fluid py-3 my-3" id="intro">
+            <section id="scrollDown">
+                <!---img src="res/Rasengan.webp\" style="width: 100px; height: 100px;"> -->
+                <h1 class="display-4">Hello, I am AVION</h1>
+                <h2 class="display-5">Your Personal Assistant. How can I help you today?</h2>
+                <div class="input-group" id="user-input-class">
+                    <input id="userInput" type="text" class="form-control" placeholder="Enter something here" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-light btn-block" onclick="updateConversation(); return false;">Ask</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="scroll-box" id="scroll-panel"></div>
+    </body>
+</html>
