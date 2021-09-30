@@ -1,4 +1,5 @@
 let input;
+var currentTemp;
 
 function display_count() {
     var date = new Date();
@@ -20,6 +21,7 @@ function display_count() {
     document.getElementById("time-display").innerHTML = time_displayed;
     displayClock();
     displayGreeting();
+    //displayWeather();
 }
 
 function displayClock() {
@@ -41,6 +43,15 @@ function displayGreeting() {
     }
 }
 
+let weather = fetch('https://api.openweathermap.org/data/2.5/weather?q=Atlanta&units=imperial&appid=9bc09916adeaecc130288a39eedc3b12')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        currentTemp = data['main']['temp'];
+        //if (currentTemp)
+        document.getElementById("weather-display").innerHTML = currentTemp + "° F";
+});
+
 function updateConversation() {
     input = document.getElementById("userInput").value;
     let output = document.getElementById("scroll-panel");
@@ -59,6 +70,15 @@ function updateConversation() {
     }
     else if (input.includes("name")) {
         output.innerHTML += "<p id='response-output-line'>" + "I'm AVION, your personal assistant!" + "</p>";
+    }
+    else if (input.includes("weather")) {
+        fetch('https://api.openweathermap.org/data/2.5/weather?q=Atlanta&units=imperial&appid=9bc09916adeaecc130288a39eedc3b12')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                var temp = data['main']['temp'];
+                output.innerHTML += "<p id='response-output-line'>" + "The weather right now feels like about " + temp + "° F" + "</p>";
+            });
     }
     else {
         output.innerHTML += "<p id='response-output-line'>" + "Sorry I didn't understand that. Please try a command I do understand!" + "</p>";

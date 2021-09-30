@@ -30,6 +30,19 @@ body {
   width: 15%;
 }
 
+.weather-widget {
+  background: -webkit-linear-gradient(45deg,#A770EF,#CF8BF3,#FDB99B,#ffe4cb);
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+}
+
+#weather-display {
+  display: inline;
+}
+
 #greeting {
     color:pink;
     font-size: 75px;
