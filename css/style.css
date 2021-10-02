@@ -171,6 +171,31 @@ body {
   padding-right: 15px;
   text-align: right;
 }
+
+/* typewriter {
+  overflow: hidden;
+  border-right: .1em solid #A6FFCB;
+  white-space: nowrap;
+  margin: auto;
+  position: absolute;
+  right: 26%;
+  animation: 
+    typing 3.5s steps(40, end),
+    blink-caret .75s steps(40, end);
+} */
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 50% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #A6FFCB; }
+}
+
   
 @keyframes fadeIn {
     0% {opacity:0;}

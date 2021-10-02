@@ -1,5 +1,6 @@
 let input;
 var currentTemp;
+var weatherkey = config.OWM_KEY;
 
 function display_count() {
     var date = new Date();
@@ -43,7 +44,7 @@ function displayGreeting() {
     }
 }
 
-let weather = fetch('https://api.openweathermap.org/data/2.5/weather?q=Atlanta&units=imperial&appid=9bc09916adeaecc130288a39eedc3b12')
+let weather = fetch('https://api.openweathermap.org/data/2.5/weather?q=Atlanta&units=imperial&appid=' + weatherkey)
     .then(response => response.json())
     .then(data => {
         console.log(data);
@@ -59,29 +60,29 @@ function updateConversation() {
     input = input.toLowerCase();
     output.innerHTML += "<p id='user-input-line'>" + input + "</p>";
     if (input.includes("how are you")) {
-        output.innerHTML += "<p id='response-output-line'>" + "I'm doing good, how about yourself?" + "</p>";
+        output.innerHTML += "<p class='typewriter' id='response-output-line'>" + "I'm doing good, how about yourself?" + "</p>";
         input = document.getElementById("userInput").value.toLowerCase();
         if (input.includes("good")) {
-            output.innerHTML += "<p id='response-output-line'>" + "That's great to hear!" + "</p>";   
+            output.innerHTML += "<p class='typewriter' id='response-output-line'>" + "That's great to hear!" + "</p>";   
         }
     }
     else if (input.includes("hi") || input.includes("hey") || input.includes("hello") || input.includes("what's up")) {
-        output.innerHTML += "<p id='response-output-line'>" + "Hey there!" + "</p>";
+        output.innerHTML += "<p class='typewriter' id='response-output-line'>" + "Hey there!" + "</p>";
     }
     else if (input.includes("name")) {
-        output.innerHTML += "<p id='response-output-line'>" + "I'm AVION, your personal assistant!" + "</p>";
+        output.innerHTML += "<p class='typewriter' id='response-output-line'>" + "I'm AVION, your personal assistant!" + "</p>";
     }
     else if (input.includes("weather")) {
-        fetch('https://api.openweathermap.org/data/2.5/weather?q=Atlanta&units=imperial&appid=9bc09916adeaecc130288a39eedc3b12')
+        fetch('https://api.openweathermap.org/data/2.5/weather?q=Atlanta&units=imperial&appid=' + weatherkey)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
                 var temp = data['main']['temp'];
-                output.innerHTML += "<p id='response-output-line'>" + "The weather right now feels like about " + temp + "° F" + "</p>";
+                output.innerHTML += "<p class='typewriter' id='response-output-line'>" + "The weather right now feels like about " + temp + "° F" + "</p>";
             });
     }
     else {
-        output.innerHTML += "<p id='response-output-line'>" + "Sorry I didn't understand that. Please try a command I do understand!" + "</p>";
+        output.innerHTML += "<p class='typewriter' id='response-output-line'>" + "Sorry I didn't understand that. Please try a command I do understand!" + "</p>";
     }
     output.innerHTML += "</p>"
     document.getElementById("userInput").value = "";
