@@ -1,6 +1,7 @@
 let input;
 var currentTemp;
 var weatherkey = config.OWM_KEY;
+var weatherURL = 'https://api.openweathermap.org/data/2.5/weather?q=Atlanta&units=imperial&appid=' + weatherkey;
 
 function display_count() {
     var date = new Date();
@@ -22,7 +23,6 @@ function display_count() {
     document.getElementById("time-display").innerHTML = time_displayed;
     displayClock();
     displayGreeting();
-    //displayWeather();
 }
 
 function displayClock() {
@@ -44,14 +44,13 @@ function displayGreeting() {
     }
 }
 
-let weather = fetch('https://api.openweathermap.org/data/2.5/weather?q=Atlanta&units=imperial&appid=' + weatherkey)
+let weather = fetch(weatherURL)
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         currentTemp = data['main']['temp'];
         //if (currentTemp)
         document.getElementById("weather-display").innerHTML = currentTemp + "° F";
-});
+    });
 
 function updateConversation() {
     input = document.getElementById("userInput").value;
@@ -63,7 +62,7 @@ function updateConversation() {
         output.innerHTML += "<p class='typewriter' id='response-output-line'>" + "I'm doing good, how about yourself?" + "</p>";
         input = document.getElementById("userInput").value.toLowerCase();
         if (input.includes("good")) {
-            output.innerHTML += "<p class='typewriter' id='response-output-line'>" + "That's great to hear!" + "</p>";   
+            output.innerHTML += "<p class='typewriter' id='response-output-line'>" + "That's great to hear!" + "</p>";
         }
     }
     else if (input.includes("hi") || input.includes("hey") || input.includes("hello") || input.includes("what's up")) {
@@ -73,10 +72,9 @@ function updateConversation() {
         output.innerHTML += "<p class='typewriter' id='response-output-line'>" + "I'm AVION, your personal assistant!" + "</p>";
     }
     else if (input.includes("weather")) {
-        fetch('https://api.openweathermap.org/data/2.5/weather?q=Atlanta&units=imperial&appid=' + weatherkey)
+        fetch(weatherURL)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 var temp = data['main']['temp'];
                 output.innerHTML += "<p class='typewriter' id='response-output-line'>" + "The weather right now feels like about " + temp + "° F" + "</p>";
             });
@@ -90,6 +88,75 @@ function updateConversation() {
     var chatHistory = document.getElementById("scroll-panel");
     chatHistory.scrollTop = chatHistory.scrollHeight - chatHistory.clientHeight;
 }
+
+
+
+
+const greetings =  ['Hey there!', 'Hi!', 'Hello there!'];
+const howDoings = ['I\'m doing great! How about you?', 'Hanging in there!', 'Fantastic, and how about yourself?'];
+
+function speechConversation() {
+    document.getElementById("listening").style.display = "block";
+    try {
+        speechRecognition.start();
+    } catch (error) {
+        alert("Your brower is currently not capable of performing this function");
+    }
+}
+
+let startButton = document.getElementById("talk");
+let stopButton = document.getElementById("stop");
+
+let speechRecognition = new webkitSpeechRecognition();
+
+speechRecognition.onstart = () => {
+    document.getElementById("listening").style.color = "rgb(224, 83, 83)";
+};
+
+speechRecognition.onError = () => {
+    document.getElementById("listening").style.color = "rgb(26, 26, 26)";
+};
+
+speechRecognition.onresult = (event) => {
+    document.getElementById("listening").style.color = "rgb(26, 26, 26)";
+    const current = event.resultIndex;
+    const transcript = event.results[current][0].transcript;
+
+    let output = document.getElementById("scroll-panel");
+    output.innerHTML += "<p class='typewriter' id='user-input-line'>" + transcript + "</p>";
+    output.innerHTML += "<p class='typewriter' id='response-output-line'>" + respond(transcript); + "</p>";
+};
+
+function respond(input) {
+    const speech = new SpeechSynthesisUtterance();
+    speech.text = 'Sorry I didn\'t understand that. Please try a command I do understand!';
+
+    if (input.includes("hi") || input.includes("hey") || input.includes("hello") || input.includes("what's up")) {
+        speech.text = greetings[Math.floor(Math.random() * greetings.length)];
+        returnText = speech.text;
+    } else if (input.includes("how are you")) {
+        speech.text = howDoings[Math.floor(Math.random() * greetings.length)];
+        returnText = speech.text;
+    } else if (input.includes("weather")) {
+        var temp;
+        fetch(weatherURL)
+            .then(response => response.json())
+            .then(data => {
+                temp = data['main']['temp'];
+                console.log("here");
+            });
+        speech.text = 'The weather right now feels like about' + temp + 'degrees Farenheit';
+        returnText = "The weather right now feels like about " + temp + "° F";
+    }
+    
+    speech.volume = 0.7;
+    speech.rate = 1;
+    speech.pitch = 1;
+
+    window.speechSynthesis.speak(speech);
+    return returnText;
+}
+
 
 function scrollOnClick() {
     /*$(document).ready(function(){

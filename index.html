@@ -13,6 +13,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="/res/open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+        <link href="res/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet">
     </head>
     <nav class="navbar sticky-top" id="navbar-top">
         <span class="navbar-brand mb-0 h1">
@@ -35,7 +36,7 @@
                 <h1 type="text" id="date-display"></h1>
             </div>
             <p id="scroll-arrow-desc">Scroll Down</p>
-            <a class="ct-btn-scroll ct-js-btn-scroll" href="#scrollDown" onclick="scrollOnClick()"><img src="/res/open-iconic-master/svg/arrow-circle-bottom.svg" class="scroll-arrow" alt="arrow-circle-bottom"></a>
+            <a class="ct-btn-scroll ct-js-btn-scroll" href="#intro" onclick="scrollOnClick()"><img src="/res/open-iconic-master/svg/arrow-circle-bottom.svg" class="scroll-arrow" alt="arrow-circle-bottom"></a>
         </div>
         <div class="container-fluid py-3 my-3" id="intro">
             <section id="scrollDown">
@@ -43,6 +44,10 @@
                 <h1 class="display-4">Hello, I am AVION</h1>
                 <h2 class="display-5">Your Personal Assistant. How can I help you today?</h2>
                 <div class="input-group" id="user-input-class">
+                    <i class="fa fa-circle" id="listening" aria-hidden="true"></i>
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-light btn-block rounded" id="talk" onclick="speechConversation(); return false;"><i class="fa fa-microphone" id="mic-logo-on" aria-hidden="true"></i></button>
+                    </div>
                     <input id="userInput" type="text" class="form-control" placeholder="Enter something here" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button class="btn btn-outline-light btn-block" onclick="updateConversation(); return false;">Ask</button>
@@ -51,5 +56,13 @@
             </section>
         </div>
         <div class="scroll-box" id="scroll-panel"></div>
+        <footer>
+            <div class="bg-dark py-4" id="footer">
+                <div class="container text-center">
+                  <p class="text-muted mb-0 py-2">A Varun Hegde Project :) <a href="https://github.com/vhegde14/Avion"><i class="fa fa-github" id="github-logo" aria-hidden="true"></i></a>
+                  </p>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>
